@@ -174,7 +174,7 @@ grading = st.radio(
 
 st.markdown("---")
 
-if grading =="Cần Chỉnh Sửa Nhẹ **Đạt** - *Bạn cần chỉnh sửa hết các lỗi sai trước khi Submit*":
+if grading =="Cần Chỉnh Sửa Nhẹ ✅ - *Bạn cần chỉnh sửa hết các lỗi sai trước khi Submit*":
     st.markdown("##### Cần Chỉnh Sửa Nhẹ (Đạt) - **Bạn cần chỉnh sửa hết các lỗi sai trước khi Submit**")
     correct_1 = st.checkbox("Cần viết lại câu hỏi (giữ nguyên nội dung được hỏi, có thể thêm một vài thông tin bổ sung) cho phù hợp.")
     correct_2 = st.checkbox("Cần viết lại câu trả lời (giữ nguyên nội dung, có thể thêm một vài thông tin bổ sung) cho phù hợp.")
