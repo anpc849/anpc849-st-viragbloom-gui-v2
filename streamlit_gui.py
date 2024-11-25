@@ -203,7 +203,7 @@ submission_data = {
         "answer": [a_1, a_2, a_3],
         "citation": [c_1],
         "grading": grading,
-        "reason_correct": [correct_1, correct_2, correct_3] if grading == "Cần Chỉnh Sửa Nhẹ **Đạt** - *Bạn cần chỉnh sửa hết các lỗi sai trước khi Submit*" else None
+        "reason_correct": [correct_1, correct_2, correct_3] if grading == "Cần Chỉnh Sửa Nhẹ ✅ - *Bạn cần chỉnh sửa hết các lỗi sai trước khi Submit*" else None
     }
 }
 
