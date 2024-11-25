@@ -14,7 +14,7 @@ import base64
 username = os.getenv('MONGO_USERNAME')
 password = os.getenv('MONGO_PASSWORD')
 
-st.write(username)
+st.write(username, password)
 
 @st.cache_data
 def load_data():
