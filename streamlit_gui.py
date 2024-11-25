@@ -219,6 +219,7 @@ with col1_final:
 
 if 'mongo_client' not in st.session_state:
     mongo_uri = "mongodb+srv://username:password@cluster0.wbusr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    st.write(mongo_uri)
     st.session_state.mongo_client = MongoClient(mongo_uri, server_api=ServerApi('1'))
     st.session_state.db = st.session_state.mongo_client["localhost"]
     st.session_state.collection = st.session_state.db["Human_check_law_domain"]
