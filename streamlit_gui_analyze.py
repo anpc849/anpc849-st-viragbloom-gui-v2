@@ -13,9 +13,36 @@ import base64
 
 username = os.getenv('MONGO_USERNAME')
 password = os.getenv('MONGO_PASSWORD')
+password_streamlit = os.getenv('STREAMLIT_PASSWORD')
 
-st.write(username)
+# Password protection
+def check_password():
+    """Returns `True` if the user had the correct password."""
 
+    def password_entered():
+        """Checks whether a password entered by the user is correct."""
+        if st.session_state["password"] == password_streamlit:
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # Don't store the password
+        else:
+            st.session_state["password_correct"] = False
+
+    # First run or password incorrect
+    if "password_correct" not in st.session_state:
+        st.text_input(
+            "Please enter your password", 
+            type="password", 
+            on_change=password_entered, 
+            key="password"
+        )
+        return False
+    
+    # Password correct
+    return st.session_state["password_correct"]
+
+# Main app
+if check_password():
+    st.stop()
 @st.cache_data
 def load_data():
     # Load the CSV data
