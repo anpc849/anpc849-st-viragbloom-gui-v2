@@ -41,7 +41,7 @@ def check_password():
     return st.session_state["password_correct"]
 
 # Main app
-if check_password():
+if not check_password():
     st.stop()
 @st.cache_data
 def load_data():
