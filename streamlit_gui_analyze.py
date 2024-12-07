@@ -170,6 +170,7 @@ submission_data = {
     'level': "Analyze",
     'domain': "law",
     'topic': selected_topic,
+    'reasoning_types': reasoning_types
 }
 
 with col1_final:
