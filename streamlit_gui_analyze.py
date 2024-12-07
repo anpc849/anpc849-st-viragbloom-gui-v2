@@ -160,7 +160,7 @@ if list_cluster:
 
 question = st.text_area("Question")
 answer = st.text_area("Answer")
-
+reasoning_types = st.multiselect("Select the reasoning types", ["Numerical Reasoning", "Multiple Constraints", "Temporal Reasoning", "Post-Processing"])
 col1_final, col2_final = st.columns(2)
 
 submission_data = {
