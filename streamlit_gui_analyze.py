@@ -105,6 +105,9 @@ col1, col2 = st.columns(2)
 
 with col1:
     if st.button("Previous"):
+        # Re-randomize clusters and reset file paths
+        st.session_state.selected_clusters = random.sample(list_cluster, 2)
+        st.session_state.file_paths = []
         if st.session_state.idx > 0:
             st.session_state.idx -= 1
         else:
@@ -114,6 +117,9 @@ with col1:
 
 with col2:
     if st.button("Next"):
+        # Re-randomize clusters and reset file paths
+        st.session_state.selected_clusters = random.sample(list_cluster, 2)
+        st.session_state.file_paths = []
         if st.session_state.idx < len(list_cluster) - 1:
             st.session_state.idx += 1
         else:
@@ -124,16 +130,13 @@ with col2:
 # Display selected cluster
 st.subheader(f"Topic: {selected_topic}")
 if list_cluster:
-    # Initialize file paths in session state if not already present
-    if 'file_paths' not in st.session_state:
+    # Initialize session state variables if not already set
+    if 'selected_clusters' not in st.session_state:
+        st.session_state.selected_clusters = random.sample(list_cluster, 2)
         st.session_state.file_paths = []
-    
-    # Randomly select two different clusters
-    selected_clusters = random.sample(list_cluster, 2)
-    st.session_state.file_paths = []  # Reset file paths for new selection
-    
+
     col1, col2 = st.columns(2)
-    for idx, cluster in enumerate(selected_clusters):
+    for idx, cluster in enumerate(st.session_state.selected_clusters):
         with col1 if idx == 0 else col2:
             st.subheader(f"Cluster: {cluster}")
             cluster_data = topic_data[topic_data.index == cluster]
@@ -141,7 +144,15 @@ if list_cluster:
             if not cluster_data.empty:
                 file_path = cluster_data['file_path'].tolist()[0].split("/")[-1]
                 source = cluster_data['key_name'].tolist()[0]
-                st.session_state.file_paths.append({"source": source, "file_path": file_path})
+                
+                # Create the new entry
+                new_entry = {"source": source, "file_path": file_path}
+                
+                # Check and append only if the entry does not exist
+                if new_entry not in st.session_state.file_paths:
+                    st.session_state.file_paths.append(new_entry)
+
+                # Determine the correct file path
                 law_domain_part1 = "law_domain_part1/"
                 law_domain_part2 = "law_domain_part2/"
 
@@ -153,14 +164,14 @@ if list_cluster:
                 else:
                     file_path = full_path_part2
                 
-                # Store the file path
-                
+                # Display the PDF
                 displayPDF(file_path)
 
-
-question = st.text_area("Question")
-answer = st.text_area("Answer")
-reasoning_types = st.multiselect("Select the reasoning types", ["Numerical Reasoning", "Multiple Constraints", "Temporal Reasoning", "Post-Processing"])
+    # Text areas for question and answer
+    question = st.text_area("Question")
+    answer = st.text_area("Answer")
+    reasoning_types = st.multiselect("Select the reasoning types", ["Numerical Reasoning", "Multiple Constraints", "Temporal Reasoning", "Post-Processing"])
+    
 col1_final, col2_final = st.columns(2)
 
 submission_data = {
